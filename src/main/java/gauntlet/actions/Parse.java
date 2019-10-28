@@ -3,7 +3,6 @@ package gauntlet.actions;
 import gauntlet.model.CliArguments;
 import gauntlet.util.Counter;
 import htmlparser.HtmlParser;
-import htmlparser.core.Tag;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,12 +45,16 @@ public enum Parse {;
         final Path targetFile = sourceToResult(path.toFile()).toPath();
         try {
             final String source = Files.readString(path);
-            final Tag intermediate = parser.fromHtml(source);
-            Files.writeString(targetFile, parser.toHtml(intermediate), CREATE, TRUNCATE_EXISTING);
+            final String result = parseHtml(source, parser);
+            Files.writeString(targetFile, result, CREATE, TRUNCATE_EXISTING);
+        } catch (IOException e) {}
+    }
+
+    private static String parseHtml(final String sourceHtml, final HtmlParser parser) {
+        try {
+            return parser.toHtml(parser.fromHtml(sourceHtml));
         } catch (Throwable e) {
-            try {
-                Files.writeString(targetFile, "", CREATE, TRUNCATE_EXISTING);
-            } catch (IOException ex) {}
+            return "";
         }
     }
 
