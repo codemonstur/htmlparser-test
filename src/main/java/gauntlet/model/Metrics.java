@@ -29,7 +29,8 @@ public final class Metrics {
         final int numSuccess = count(results, success);
         final int numMissing = count(results, missing);
 
-        final double percentage = numSuccess * 100 / (double)(numSuccess + numFailure);
+        double percentage = 0;
+        if (numFailure + numSuccess != 0) percentage = numSuccess * 100 / (double)(numSuccess + numFailure);
         return new Metrics(numAll, numFailure, numSuccess, numMissing, percentage);
     }
 

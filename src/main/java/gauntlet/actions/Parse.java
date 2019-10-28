@@ -1,6 +1,7 @@
 package gauntlet.actions;
 
 import gauntlet.model.CliArguments;
+import gauntlet.util.Counter;
 import htmlparser.HtmlParser;
 import htmlparser.core.Tag;
 
@@ -28,20 +29,29 @@ public enum Parse {;
     public static void parseUnparsedRepoFiles(final CliArguments arguments, final File repoDir) throws IOException {
         final HtmlParser parser = newHtmlParser().shouldPrettyPrint(false).build();
 
+        final Counter numParsed = new Counter();
         Files
             .walk(repoDir.toPath())
-            .filter(path -> path.endsWith(".source"))
+            .filter(path -> path.toFile().getName().endsWith(".source"))
             .filter(path -> !sourceToResult(path.toFile()).exists())
+            .peek(path -> numParsed.increment())
+            .peek(path -> {
+                if (numParsed.get() % 100 == 0)
+                    System.out.println("Parsed: " + numParsed.get());
+            })
             .forEach(path -> parseSingleRepoFile(path, parser));
     }
 
     private static void parseSingleRepoFile(final Path path, final HtmlParser parser) {
+        final Path targetFile = sourceToResult(path.toFile()).toPath();
         try {
             final String source = Files.readString(path);
             final Tag intermediate = parser.fromHtml(source);
-            Files.writeString(sourceToResult(path.toFile()).toPath(), parser.toHtml(intermediate), CREATE, TRUNCATE_EXISTING);
+            Files.writeString(targetFile, parser.toHtml(intermediate), CREATE, TRUNCATE_EXISTING);
         } catch (Throwable e) {
-            System.out.println("FAILED to parse file " + path);
+            try {
+                Files.writeString(targetFile, "", CREATE, TRUNCATE_EXISTING);
+            } catch (IOException ex) {}
         }
     }
 

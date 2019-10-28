@@ -25,7 +25,7 @@ public enum Stats {;
     public static void collectStats(final CliArguments arguments, final File repoDir) throws IOException {
         final List<ParseResult> results = Files
             .walk(repoDir.toPath())
-            .filter(path -> path.endsWith(".source"))
+            .filter(path -> path.toFile().getName().endsWith(".source"))
             .map(Stats::isSourceEqualToParsed)
             .collect(toList());
 

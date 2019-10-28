@@ -23,4 +23,14 @@ public class TestRepository {
 
         assertEquals("Target domain is wrong", "www.example.com", output);
     }
+
+    @Test
+    public void testSourceToResult() {
+        final File source = new File("data/bla/dontcare/2019-10-20-www.example.com.source");
+        final File expected = new File("data/bla/dontcare/2019-10-20-www.example.com.result");
+        final File output = Repository.sourceToResult(source);
+
+        assertEquals("Target domain is wrong", expected.getAbsolutePath(), output.getAbsolutePath());
+    }
+
 }
