@@ -1,7 +1,9 @@
-package gauntlet.core;
+package gauntlet.actions;
 
+import gauntlet.model.CliArguments;
 import htmlparser.HtmlParser;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -9,9 +11,9 @@ import static gauntlet.util.IO.resourceAsString;
 import static htmlparser.HtmlParser.newHtmlParser;
 import static java.util.Arrays.asList;
 
-public class Snippets {
+public enum Snippets {;
 
-    public static void main(final String... args) throws IOException {
+    public static void runSnippets(final CliArguments arguments, final File repoDir) throws IOException {
 
         final List<String> snippets = asList
             ( resourceAsString("/snippets/conditional_comments.html")

@@ -5,7 +5,9 @@ import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.time.format.DateTimeFormatter.ofPattern;
@@ -39,6 +41,14 @@ public enum Convert {;
         } catch (NoSuchAlgorithmException e) {
             return defaultValue;
         }
+    }
+
+    public static <T> int count(final List<T> results, final T value) {
+        int total = 0;
+        for (final T result : results) {
+            if (Objects.equals(value, result)) total++;
+        }
+        return total;
     }
 
 }
