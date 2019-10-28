@@ -50,9 +50,12 @@ public enum Repository {;
         final String path = source.getAbsolutePath();
         return new File(path.substring(0, path.lastIndexOf("."))+".result");
     }
+
+    private static final int DATE_FORMAT_LENGTH = "YYYY-MM-DD-".length();
+    private static final int SRC_EXTENSION_LENGTH = ".source".length();
     public static String sourceToDomain(final Path sourceFile) {
         final String filename = sourceFile.toFile().getName();
-        return filename.substring(11, filename.length()-12);
+        return filename.substring(DATE_FORMAT_LENGTH, filename.length()-SRC_EXTENSION_LENGTH);
     }
 
     public static File toRepositorySourceFile(final File repoDir, final String hostname) throws IOException {

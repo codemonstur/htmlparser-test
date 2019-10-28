@@ -9,7 +9,7 @@ clean:
 
 build:
 	@echo "[$(NAME)] Building"
-	@mvn -q -e clean package
+	@mvn -q clean package
 
 check-versions:
 	@mvn versions:display-dependency-updates
