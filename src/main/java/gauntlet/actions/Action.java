@@ -9,13 +9,14 @@ import java.io.IOException;
 public enum Action {
     clean_broken(Clean::cleanBroken),
     clean_downloaded(Clean::cleanDownloaded),
+    collect_stats(Stats::collectStats),
     download_new(Download::addNewHostnames),
     download_broken(Download::downloadBrokenHostnames),
-    collect_stats(Stats::collectStats),
-    print_stats(Stats::printStats),
-    snippets(Snippets::runSnippets),
+    find_not_parsable(Find::findNotParsable),
     parse_all(Parse::parseAllRepoFiles),
     parse_unparsed(Parse::parseUnparsedRepoFiles),
+    print_stats(Stats::printStats),
+    snippets(Snippets::runSnippets),
     dummy(Dummy::printMissingAction);
 
     private final Task task;
