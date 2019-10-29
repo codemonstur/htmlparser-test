@@ -21,7 +21,7 @@ public enum Parse {;
 
         Files
             .walk(repoDir.toPath())
-            .filter(path -> path.endsWith(".source"))
+            .filter(path -> path.toFile().getName().endsWith(".source"))
             .forEach(path -> parseSingleRepoFile(path, parser));
     }
 
