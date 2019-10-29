@@ -4,7 +4,7 @@ import gauntlet.model.CliArguments;
 
 import static gauntlet.Repository.validateRepositoryDirectory;
 import static gauntlet.Command.dummy;
-import static gauntlet.Command.toAction;
+import static gauntlet.Command.toCommand;
 import static gauntlet.util.App.runApp;
 import static jcli.CliParserBuilder.newCliParser;
 
@@ -16,7 +16,7 @@ public enum Main {;
             .onHelpPrintHelpAndExit()
             .parseSuppressErrors(args);
 
-        runApp(() -> toAction(arguments, dummy).execute(arguments, validateRepositoryDirectory(arguments.repoDir)));
+        runApp(() -> toCommand(arguments, dummy).execute(arguments, validateRepositoryDirectory(arguments.repoDir)));
     }
 
 }

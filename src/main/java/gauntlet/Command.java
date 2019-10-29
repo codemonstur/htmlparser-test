@@ -13,6 +13,7 @@ public enum Command {
     collect_stats(Stats::collectStats),
     download_new(Download::addNewHostnames),
     download_broken(Download::downloadBrokenHostnames),
+    find_not_parsable(Find::findNotParsable),
     list_failed(List::listFailed),
     parse_all(Parse::parseAllRepoFiles),
     parse_unparsed(Parse::parseUnparsedRepoFiles),
@@ -25,7 +26,7 @@ public enum Command {
         this.action = action;
     }
 
-    public static Command toAction(final CliArguments arguments, final Command defaultValue) {
+    public static Command toCommand(final CliArguments arguments, final Command defaultValue) {
         try {
             return Command.valueOf(arguments.action.replaceAll("-", "_"));
         } catch (IllegalArgumentException e) {

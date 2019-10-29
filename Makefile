@@ -20,4 +20,3 @@ install:
 	@mvn clean package
 	@cp target/gauntlet.jar /usr/local/bin
 	@chmod +x /usr/local/bin/gauntlet.jar
-
