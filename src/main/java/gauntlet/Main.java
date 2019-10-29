@@ -3,8 +3,8 @@ package gauntlet;
 import gauntlet.model.CliArguments;
 
 import static gauntlet.Repository.validateRepositoryDirectory;
-import static gauntlet.actions.Action.dummy;
-import static gauntlet.actions.Action.toAction;
+import static gauntlet.Command.dummy;
+import static gauntlet.Command.toAction;
 import static gauntlet.util.App.runApp;
 import static jcli.CliParserBuilder.newCliParser;
 

@@ -9,7 +9,7 @@ import static jcli.CliHelp.printHelp;
 public enum Dummy {;
 
     public static void printMissingAction(final CliArguments arguments, final File repoDir) {
-        System.out.println("No such action '" + arguments.action + "', no action taken\n");
+        System.out.println("No such action '" + arguments.action + "', no action taken. Help follows\n");
         printHelp("gauntlet", CliArguments.class);
     }
 
