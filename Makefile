@@ -15,18 +15,18 @@ help:
 
 clean:
 	@echo "[$(NAME)] Cleaning"
-	@mvn -q clean
+	@mvn clean
 
 build:
 	@echo "[$(NAME)] Building"
-	@mvn -q clean package
+	@mvn -DskipTests=true clean package
 
 check-versions:
 	@mvn versions:display-dependency-updates
 	@mvn versions:display-plugin-updates
 
 install:
-	@echo "Compiling jar and copying to /usr/local/bin/gauntlet.jar"
+	@echo "Compiling jar and copying to /usr/local/bin/$(NAME).jar"
 	@mvn clean package
-	@cp target/gauntlet.jar /usr/local/bin
-	@chmod +x /usr/local/bin/gauntlet.jar
+	@sudo cp target/$(NAME).jar /usr/local/bin/
+	@sudo chmod +x /usr/local/bin/$(NAME).jar
