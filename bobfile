@@ -1,0 +1,21 @@
+name: gauntlet
+version: 0.1
+dependencies:
+  - project: ../htmlparser
+  - repository: com.squareup.okhttp3:okhttp:4.2.2
+  - repository: com.google.code.gson:gson:2.8.6
+  - repository: com.github.codemonstur:jcli:0.9.5
+  - repository: junit:junit:4.12
+    scope: test
+
+build
+	  echo "[${PROJECT_NAME}] Building"
+    run-target -i build
+
+install
+  	run-target clean
+  	echo "Compiling jar and copying to /usr/local/bin/${PROJECT_NAME}.jar"
+  	run-target -i build
+	  sudo cp target/${PROJECT_NAME}-${PROJECT_VERSION}.jar /usr/local/bin/${PROJECT_NAME}.jar
+	  sudo chmod +x /usr/local/bin/${PROJECT_NAME}.jar
+
