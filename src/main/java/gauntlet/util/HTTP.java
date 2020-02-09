@@ -1,30 +1,30 @@
 package gauntlet.util;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse.BodyHandlers;
+import java.util.Optional;
 
 public enum HTTP {;
 
-    private static OkHttpClient HTTP = new OkHttpClient();
+    private static HttpClient HTTP = HttpClient.newBuilder().build();
     public static String downloadHtml(final String domain) throws IOException {
-        final Request request = new Request.Builder().url("http://"+domain).get().build();
+        final HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://"+domain)).GET().build();
 
-        try (final Response response = HTTP.newCall(request).execute()) {
-            if (!response.isSuccessful())
-                throw new IOException("not a 200 OK: " + response.code());
+        try {
+            final var response = HTTP.send(request, BodyHandlers.ofString());
+            if (response.statusCode() < 200 || response.statusCode() > 299)
+                throw new IOException("not a 200 OK: " + response.statusCode());
 
-            final String header = response.header("Content-Type");
-            if (header == null || !header.startsWith("text/html"))
-                throw new IOException("unknown content-type: " + header);
+            final Optional<String> header = response.headers().firstValue("Content-Type");
+            if (header.isEmpty()) throw new IOException("missing content-type header");
+            if (!header.get().startsWith("text/html")) throw new IOException("unknown content-type: " + header);
 
-            final ResponseBody body = response.body();
-            if (body == null) throw new IOException("no body");
-
-            return body.string();
+            return response.body();
+        } catch (InterruptedException e) {
+            throw new IOException("Interrupted during downloading " + domain);
         }
     }
 

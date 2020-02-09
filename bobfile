@@ -9,7 +9,7 @@ dependencies:
 
 build
     echo "[${PROJECT_NAME}] Building"
-    run-target -i build
+    run-target -i clean build
 
 install
     echo "[${PROJECT_NAME}] Clean and build for install"
