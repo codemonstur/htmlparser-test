@@ -8,13 +8,13 @@ dependencies:
     scope: test
 
 build
-    echo "[${PROJECT_NAME}] Building"
+    echo [${PROJECT_NAME}] Building
     run-target -i clean build
 
 install
-    echo "[${PROJECT_NAME}] Clean and build for install"
+    echo [${PROJECT_NAME}] Clean and build for install
     run-target -i clean build
-    echo "[${PROJECT_NAME}] Copying target/${PROJECT_NAME}-${PROJECT_VERSION}.jar to /usr/local/bin/${PROJECT_NAME}.jar"
+    echo [${PROJECT_NAME}] Copying target/${PROJECT_NAME}-${PROJECT_VERSION}.jar to /usr/local/bin/${PROJECT_NAME}.jar
     sudo cp target/${PROJECT_NAME}-${PROJECT_VERSION}.jar /usr/local/bin/${PROJECT_NAME}.jar
     sudo chmod +x /usr/local/bin/${PROJECT_NAME}.jar
 
