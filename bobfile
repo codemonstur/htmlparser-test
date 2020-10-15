@@ -4,7 +4,7 @@ dependencies:
   - project: ../htmlparser
   - repository: com.google.code.gson:gson:2.8.6
   - repository: com.github.codemonstur:jcli:0.9.5
-  - repository: junit:junit:4.12
+  - repository: junit:junit:4.13.1
     scope: test
 
 build
